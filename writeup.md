@@ -10,7 +10,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
+[image1]: ./model.png "Model Visualization"
 [image2]: ./examples/placeholder.png "Grayscaling"
 [image3]: ./examples/placeholder_small.png "Recovery Image"
 [image4]: ./examples/placeholder_small.png "Recovery Image"
@@ -26,33 +26,33 @@ The goals / steps of this project are the following:
 
 ####1. Submission includes all required files and can be used to run the simulator in autonomous mode
 
-My project includes the following files:
+This project includes the following files:
 * model.py containing the script to create and train the model
 * drive.py for driving the car in autonomous mode
 * model.h5 containing a trained convolution neural network 
-* writeup_report.md or writeup_report.pdf summarizing the results
+* writeup_report.md summarizing the results
 
 ####2. Submission includes functional code
-Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
+Using the Udacity provided simulator and drive.py file, the car can be driven autonomously around the track by executing 
 ```sh
 python drive.py model.h5
 ```
 
 ####3. Submission code is usable and readable
 
-The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
+The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline used for training and validating the model, and it contains comments to explain how the code works.
 
 ###Model Architecture and Training Strategy
 
 ####1. An appropriate model architecture has been employed
 
-The initial model was based on the NVIDIA CNN-architecture introduced in [NVIDIA-architecture](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/) and consists of a three convolutional layers with 2x2 strides and 5x5 filter sizes  followed by two convolutional layers with 3x3 filters for feature extraction and three fully-connected layers with the depths 160, 80, 16 (model.py lines 18-24). As soon as the dimesions of the input images after cropping 3x66x320(RGB) differs from the one of NVIDIA setup (3x66x200 with the YUV color map), the width sizes of the convolutional and fully-connected layers is also different.  
+The initial model was based on the NVIDIA CNN-architecture introduced in [NVIDIA-architecture](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/) and consists of a three convolutional layers with 2x2 strides and 5x5 filter sizes  followed by two convolutional layers with 3x3 filters for feature extraction and three fully-connected layers with the depths 160, 80, 16 (model.py lines 18-24). As soon as the dimensions of the input images after cropping 3x66x320(RGB) differs from the one of NVIDIA setup (3x66x200 with the YUV color map), the width sizes of the convolutional and fully-connected layers is also different.  
 
 The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
 
 ####2. Attempts to reduce overfitting in the model
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
+In order to reduce overfitting the model contains dropout layers with the keep probability 0.5 by fully-connected layers (model.py lines 21). 
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
@@ -63,10 +63,10 @@ The model used an adam optimizer, so the learning rate was not tuned manually (m
 ####4. Appropriate training data
 
 Following strategies for collecting of the training data has been chosen to keep the vehicle driving on the road:
-- two laps on the first track where the car drives along the center of the road as much as possible
-- half of the lap on the first track where the car drives s-curves along the center of the road by max velocity
-- half of the lap on the second track where the car drives along the center of the road
-- half of the lap on the first track counter-clockwise where the car drives s-curves along the center of the road by max velocity
+- two laps on the first track where the car drives along the center of the road as much as possible by max velocity
+- one lap on the first track where the car drives s-curves along the center of the road by max velocity
+- one lap on the second track where the car drives along the center of the road
+- one lap on the first track counter-clockwise where the car drives along the center of the road by max velocity
 
 For details about how I created the training data, see the next section. 
 
@@ -92,17 +92,17 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 
 The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
 
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
+Here is a visualization of the architecture:
 
 ![alt text][image1]
 
 ####3. Creation of the Training Set & Training Process
 
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
+To capture good driving behavior, first two laps on track one using center lane driving have been recorded. Here is an example image of center lane driving:
 
 ![alt text][image2]
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
+Then the vehicle recovering from the left side and right sides of the road back to center on the first track has been recorded so that the vehicle would learn to drive to center from the lane borders. These images show what a recovery looks like starting from ... :
 
 ![alt text][image3]
 ![alt text][image4]
@@ -117,9 +117,8 @@ To augment the data sat, I also flipped images and angles thinking that this wou
 
 Etc ....
 
-After the collection process, I had X number of data points. I then preprocessed this data by ...
+After the collection process, there were X number of data points. At the preprocessing step the data have been normalized in order to avoid.
 
-
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
+Finally the data set has been randomly shuffled and 20% of the data has been used as a validation set. 
 
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
