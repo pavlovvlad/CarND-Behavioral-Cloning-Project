@@ -27,6 +27,7 @@ This project includes the following files:
 * drive.py for driving the car in autonomous mode
 * model.h5 containing a trained convolution neural network 
 * writeup report.md summarizing the results
+* video.mp4 with one full lap around the track one
 
 ####2. Submission includes functional code
 Using the Udacity provided simulator and drive.py file, the car can be driven autonomously around the track one by executing 
@@ -57,7 +58,7 @@ The model was trained and validated on different data sets to ensure that the mo
 The Adam-Optimizer has been applied, as it uses the momentum (moving average) in comparision to the GradientDescentOptimizer to improve the gradient direction, so the larger batch sizes can be used. Batch size has been empirically choosen equal 128.
 
 After some tuning the hyperparameter have been set as follows: 
-- learning rate: 0.001.
+- learning rate: 0.001
 - number of epochs: 18
 - batch size: 128
 - rows pixels from the top of the image: 74
@@ -99,7 +100,7 @@ x using of the augmented data (flipping)
 x using the frames from left and right cameras for more data
 x use the HLS-color space with thresholding to filter the background information
 
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle was very close to the border of the track: on the bridge with the dark shadow from the left and right. To improve the driving behavior in this case, more data on the brigde have been collected.
+The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle was very close to the border of the track: on the bridge with the dark shadow from the left and right. To improve the driving behavior in this case, more data on the brigde have been collected (slowly driven at the last recorded lap).
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
@@ -120,7 +121,7 @@ Then the vehicle recovering from the left side and right sides of the road back 
 
 Then this process has been repeated on track two in order to get more data points.
 
-After training with this data set (train:4567/ validation:1142) the vehicle was able to drive the track one without crossing the lane borders but with high oscillations within the road, also on the stright parts of the road. On the track two the vehicle can not handle curves with the higher curvatures (approx. 1/50 m radius).
+After training with this data set (train:4567/ validation:1142) the vehicle was able to drive the track one without crossing the lane borders but with high oscillations within the road, also on the stright parts of the road. On the track two the vehicle can not handle curves with the bigger curvatures (approx. 1/50 m radius).
 
 So additional data has been recorded:
 - one lap on the first track counter-clockwise where the car drives along the center of the road by lower velocity
@@ -138,4 +139,4 @@ I used this training data for training the model. The validation set helped dete
 At the epoch 18 following values have been arrived: __Train loss: 0.0645; Validation loss: 0.0672__
 That means that the model will make good predictions on both the training and validation sets.
 
-Unfortunatelly on the track two the vehicle still can not handle spiral curves with the higher curvatures which are appears (higher as 1/50 m radius).
+Unfortunatelly on the track two the vehicle still can not handle spiral curves with the bigger curvatures (> as 1/50 m radius). 
